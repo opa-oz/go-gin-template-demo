@@ -1,0 +1,83 @@
+definitions:
+  api.GetResponse:
+    properties:
+      index:
+        example: 1234
+        type: integer
+      name:
+        example: test
+        type: string
+    type: object
+  api.Healz.response:
+    properties:
+      message:
+        example: OK
+        type: string
+    type: object
+  api.Ready.response:
+    properties:
+      message:
+        example: Ready
+        type: string
+    type: object
+info:
+  contact: {}
+paths:
+  /get/{name}:
+    get:
+      consumes:
+      - application/json
+      description: Get name and index
+      parameters:
+      - description: Name
+        in: path
+        name: name
+        required: true
+        type: string
+      - default: 0
+        description: Index
+        in: query
+        name: index
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.GetResponse'
+      summary: get something
+      tags:
+      - api
+  /healz:
+    get:
+      consumes:
+      - application/json
+      description: Check health endpoint
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.Healz.response'
+      summary: healz
+      tags:
+      - utils
+  /ready:
+    get:
+      consumes:
+      - application/json
+      description: Check readiness
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.Ready.response'
+      summary: ready
+      tags:
+      - utils
+swagger: "2.0"
