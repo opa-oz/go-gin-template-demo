@@ -2,7 +2,6 @@ FROM golang:alpine AS builder
 
 LABEL stage=gobuilder
 ENV CGO_ENABLED 0
-ENV GOOS linux
 
 RUN apk update --no-cache && apk add --no-cache tzdata
 
@@ -31,5 +30,7 @@ ENV TZ Asia/Tokyo
 WORKDIR /app
 
 COPY --from=builder /app/worker /app/worker
+
+LABEL org.opencontainers.image.source=https://github.com/opa-oz/go-gin-template-demo
 
 CMD ["./worker"]
